@@ -101,12 +101,10 @@ public class LigueConsole
 				() -> 
 				{
 					LocalDate dateArrivee = LocalDate.parse(getString("Date d'arrivée (yyyy-MM-dd) : "));
-					LocalDate dateDepart = LocalDate.parse(getString("Date de départ (yyyy-MM-dd) : "));
 					
 					ligue.addEmploye(getString("nom : "), 
 						getString("prenom : "), getString("mail : "), 
-						getString("password : "), dateArrivee,
-					    dateDepart);
+						getString("password : "), dateArrivee);
 				}
 		);
 	}
