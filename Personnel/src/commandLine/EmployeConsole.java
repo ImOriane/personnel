@@ -58,8 +58,10 @@ public class EmployeConsole
 	
 	private Option finContrat(final Employe employe)
 	{
-		LocalDate dateDepart = LocalDate.parse(getString("Date de depart (yyyy-MM-dd) : "));
-		return new Option("Ajouter la date de fin de contrat", "r", () -> {employe.setDateDepart(dateDepart);});
+	    return new Option("Ajouter la date de fin de contrat", "r", () -> {
+	        LocalDate dateDepart = LocalDate.parse(getString("Date de depart (yyyy-MM-dd) :"));
+	        employe.setDateDepart(dateDepart);
+	    });
 	}
 
 }
