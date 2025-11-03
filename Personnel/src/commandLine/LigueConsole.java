@@ -86,6 +86,7 @@ public class LigueConsole
 		return new Option("Renommer", "r", 
 				() -> {ligue.setNom(getString("Nouveau nom : "));});
 	}
+	
 
 	private List<Ligue> selectionnerLigue()
 	{

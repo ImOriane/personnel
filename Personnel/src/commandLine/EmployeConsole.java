@@ -2,6 +2,8 @@ package commandLine;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
+import java.time.LocalDate;
+
 import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
@@ -27,6 +29,7 @@ public class EmployeConsole
 			menu.add(changerPrenom(employe));
 			menu.add(changerMail(employe));
 			menu.add(changerPassword(employe));
+			menu.add(finContrat(employe));
 			menu.addBack("q");
 			return menu;
 	}
@@ -53,5 +56,13 @@ public class EmployeConsole
 		return new Option("Changer le password", "x", () -> {employe.setPassword(getString("Nouveau password : "));});
 	}
 	
+	private Option finContrat(final Employe employe)
+	{
+		LocalDate dateDepart = LocalDate.parse(getString("Date de depart (yyyy-MM-dd) : "));
+		return new Option("Ajouter la date de fin de contrat", "r", () -> {employe.setDateDepart(dateDepart);});
+	}
 
 }
+
+
+
