@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import commandLineMenus.List;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
+import java.time.LocalDate;
 
 import personnel.*;
 
@@ -14,6 +15,8 @@ public class LigueConsole
 {
 	private GestionPersonnel gestionPersonnel;
 	private EmployeConsole employeConsole;
+	
+	
 
 	public LigueConsole(GestionPersonnel gestionPersonnel, EmployeConsole employeConsole)
 	{
@@ -97,9 +100,13 @@ public class LigueConsole
 		return new Option("ajouter un employé", "a",
 				() -> 
 				{
+					LocalDate dateArrivee = LocalDate.parse(getString("Date d'arrivée (yyyy-MM-dd) : "));
+					LocalDate dateDepart = LocalDate.parse(getString("Date de départ (yyyy-MM-dd) : "));
+					
 					ligue.addEmploye(getString("nom : "), 
 						getString("prenom : "), getString("mail : "), 
-						getString("password : "));
+						getString("password : "), dateArrivee,
+					    dateDepart);
 				}
 		);
 	}

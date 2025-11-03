@@ -1,6 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent 
@@ -16,8 +17,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	private String nom, prenom, password, mail;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
+	private LocalDate dateArrivee;
+	private LocalDate dateDepard;
+
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate dateDepard)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -25,6 +29,8 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.password = password;
 		this.mail = mail;
 		this.ligue = ligue;
+		this.dateArrivee = dateArrivee;
+		this.dateDepard = dateDepard;
 	}
 	
 	/**
@@ -55,6 +61,21 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Retourne le nom de l'employé.
 	 * @return le nom de l'employé. 
 	 */
+	public LocalDate getDateArrivee() {
+		return dateArrivee;
+	}
+	
+	public void setDateArrivee(LocalDate dateArrivee) {
+		this.dateArrivee = dateArrivee;
+	}
+	
+	public LocalDate getDateDepard() {
+		return dateDepard;
+	}
+	
+	public void setDateDepard(LocalDate dateDepard){
+		this.dateDepard = dateDepard;
+	}
 	
 	public String getNom()
 	{
