@@ -3,6 +3,7 @@ package commandLine;
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
@@ -59,12 +60,16 @@ public class EmployeConsole
 	private Option finContrat(final Employe employe)
 	{
 	    return new Option("Ajouter la date de fin de contrat", "r", () -> {
+	    	try {
 	        LocalDate dateDepart = LocalDate.parse(getString("Date de depart (yyyy-MM-dd) :"));
 	        employe.setDateDepart(dateDepart);
+	    	}catch (DateTimeParseException e) {
+	    	    System.err.println("Erreur : la date doit exister et être au format AAAA-MM-JJ !");
+	    	}
+	        
 	    });
 	}
 
 }
-
 
 

@@ -2,6 +2,7 @@ package personnel;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent 
@@ -66,10 +67,8 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 
 	
-	public void setDateArrivee(LocalDate dateArrivee) throws DateException {
-	    if (LocalDate.now().isBefore(dateArrivee)) {
-	    	throw new DateException("La date d'arrivée ne peut pas être ultérieure à la date d'aujourd'hui");
-	    }
+	public void setDateArrivee(LocalDate dateArrivee)  {
+
 		this.dateArrivee = dateArrivee;
 	}
 	
@@ -77,7 +76,8 @@ public class Employe implements Serializable, Comparable<Employe>
 		return dateDepart;
 	}
 	
-	public void setDateDepart(LocalDate dateDepart){
+	public void setDateDepart(LocalDate dateDepart) { 
+		
 		this.dateDepart = dateDepart;
 	}
 	
@@ -210,8 +210,6 @@ public class Employe implements Serializable, Comparable<Employe>
 			res += ligue.toString();
 		return res + ")";
 	}
-	
-	class DateException extends Exception {
-		public DateException(String message){ super(message); }
-		}
 }
+	
+

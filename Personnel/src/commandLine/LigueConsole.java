@@ -8,8 +8,10 @@ import commandLineMenus.List;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import personnel.*;
+import personnel.Employe.DateException;
 
 public class LigueConsole 
 {
@@ -98,17 +100,29 @@ public class LigueConsole
 	
 	private Option ajouterEmploye(final Ligue ligue)
 	{
-		return new Option("ajouter un employé", "a",
-				() -> 
-				{
-					LocalDate dateArrivee = LocalDate.parse(getString("Date d'arrivée (yyyy-MM-dd) : "));
-					
-					ligue.addEmploye(getString("nom : "), 
-						getString("prenom : "), getString("mail : "), 
-						getString("password : "), dateArrivee);
-				}
-		);
+	    return new Option("ajouter un employé", "a",
+	            () -> {
+	                try {
+	                    LocalDate dateArrivee = LocalDate.parse(
+	                        getString("Date d'arrivée (AAAA-MM-JJ) : ")
+	                    );
+
+	                    ligue.addEmploye(
+	                        getString("nom : "),
+	                        getString("prenom : "),
+	                        getString("mail : "),
+	                        getString("password : "),
+	                        dateArrivee
+	                    );
+
+	                }catch (DateTimeParseException e) {
+	                    System.err.println("Erreur : la date doit exister et être au format AAAA-MM-JJ !");
+	                }
+	          
+	            }
+	    );
 	}
+
 	
 	private Menu gererEmployes(Ligue ligue)
 	{
