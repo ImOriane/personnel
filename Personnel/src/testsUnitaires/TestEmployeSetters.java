@@ -67,14 +67,15 @@ class TestEmployeSetters {
     }
 
     @Test
-    void testSetDateDepartAvantArrivee() throws DateException {
-        e.setDateArrivee(LocalDate.of(2020, 5, 1));
+    void testSetDateDepartAvantArrivee() {
+
+        assertDoesNotThrow(() -> e.setDateArrivee(LocalDate.of(2020, 5, 1)));
 
         assertThrows(DateException.class, () -> {
             e.setDateDepart(LocalDate.of(2020, 4, 30));
         });
     }
-    
+
     @Test
     void testSuppressionEmploye() throws Exception {
     	
