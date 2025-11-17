@@ -62,10 +62,14 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @return le nom de l'employé. 
 	 */
 	public LocalDate getDateArrivee() {
-		return dateArrivee;
+	    return dateArrivee;
 	}
+
 	
-	public void setDateArrivee(LocalDate dateArrivee) {
+	public void setDateArrivee(LocalDate dateArrivee) throws DateException {
+	    if (LocalDate.now().isBefore(dateArrivee)) {
+	    	throw new DateException("La date d'arrivée ne peut pas être ultérieure à la date d'aujourd'hui");
+	    }
 		this.dateArrivee = dateArrivee;
 	}
 	
@@ -206,4 +210,8 @@ public class Employe implements Serializable, Comparable<Employe>
 			res += ligue.toString();
 		return res + ")";
 	}
+	
+	class DateException extends Exception {
+		public DateException(String message){ super(message); }
+		}
 }
