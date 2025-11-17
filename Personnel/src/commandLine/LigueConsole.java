@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import personnel.*;
-import personnel.Employe.DateException;
 
 public class LigueConsole 
 {

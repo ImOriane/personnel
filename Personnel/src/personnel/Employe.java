@@ -67,18 +67,23 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 
 	
-	public void setDateArrivee(LocalDate dateArrivee)  {
-
-		this.dateArrivee = dateArrivee;
+	public void setDateArrivee(LocalDate dateArrivee) throws DateException {
+	    if (dateDepart != null && dateArrivee.isAfter(dateDepart)) {
+	        throw new DateException("La date d'arrivée ne peut pas être après la date de départ.");
+	    }
+	    this.dateArrivee = dateArrivee;
 	}
+
 	
 	public LocalDate getDateDepart() {
 		return dateDepart;
 	}
 	
-	public void setDateDepart(LocalDate dateDepart) { 
-		
-		this.dateDepart = dateDepart;
+	public void setDateDepart(LocalDate dateDepart) throws DateException {
+	    if (dateArrivee != null && dateDepart.isBefore(dateArrivee)) {
+	        throw new DateException("La date de départ ne peut pas être avant la date d'arrivée.");
+	    }
+	    this.dateDepart = dateDepart;
 	}
 	
 	public String getNom()

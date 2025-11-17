@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
 import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
+import personnel.DateException;
 import personnel.Employe;
 
 public class EmployeConsole 
@@ -65,7 +66,9 @@ public class EmployeConsole
 	        employe.setDateDepart(dateDepart);
 	    	}catch (DateTimeParseException e) {
 	    	    System.err.println("Erreur : la date doit exister et être au format AAAA-MM-JJ !");
-	    	}
+	    	} catch (DateException e) {
+	    		System.err.println("Erreur : la date d'arrivée ne doit pas être ultérieure à la date de départ !");
+			}
 	        
 	    });
 	}
