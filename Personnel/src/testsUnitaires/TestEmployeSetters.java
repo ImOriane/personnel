@@ -10,8 +10,11 @@ import personnel.DroitsInsuffisants;
 import personnel.Employe;
 import personnel.GestionPersonnel;
 import personnel.Ligue;
+import personnel.SauvegardeImpossible;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.SortedSet;
 
 class TestEmployeSetters {
 	
@@ -21,11 +24,15 @@ class TestEmployeSetters {
     Ligue ligue;
     Employe e;
 
+	private int id;
+
     @BeforeEach
     void init() throws Exception {
         gestion = GestionPersonnel.getGestionPersonnel();
         ligue = gestion.addLigue("Test Ligue");
-        e = ligue.addEmploye("Nom", "Prenom", "mail@test.fr", "pass", null);
+        e = ligue.addEmploye("Nom", "Prenom", "mail@test.fr", "pass", null); 
+        e.setDateArrivee(LocalDate.of(2022, 1, 10));
+        e.setDateDepart(LocalDate.of(2023, 1, 10));
     }
 
     @Test
@@ -92,7 +99,6 @@ class TestEmployeSetters {
         assertFalse(l.getEmployes().contains(e1));
     }
     
-    
     @Test
     void testSuppressionLigue() throws Exception {
         Ligue l = gestion.addLigue("Handball");
@@ -100,8 +106,6 @@ class TestEmployeSetters {
         l.remove();
         assertFalse(gestion.getLigues().contains(l));
     }
-
-
     
     @Test
     void testModificationAdministrateur() throws Exception {
@@ -130,8 +134,65 @@ class TestEmployeSetters {
         assertEquals(gestion.getRoot(), l.getAdministrateur());
         assertFalse(l.getEmployes().contains(e1));
     }
+ 
+    @Test
+    void testSetNomligue() {
+        ligue.setNom("NouvelleLigue");
+        assertEquals("NouvelleLigue", ligue.getNom());
+    }
+
+    @Test
+    void testSetAdministrateurValide() throws DroitsInsuffisants {
+        ligue.setAdministrateur(e);
+        assertEquals(e, ligue.getAdministrateur());
+    }
+
+    @Test
+    void testSetAdministrateurInvalide() throws SauvegardeImpossible {
+        Ligue autreLigue = gestion.addLigue("AutreLigue");
+        Employe e2 = autreLigue.addEmploye("A", "B", "a@b.fr", "pass", null);
+
+        assertThrows(DroitsInsuffisants.class, () -> {
+            ligue.setAdministrateur(e2);
+        });
+    }
+
+    @Test
+    void testSetAdministrateurRoot() throws DroitsInsuffisants {
+        Employe root = gestion.getRoot();
+        ligue.setAdministrateur(root);
+        assertEquals(root, ligue.getAdministrateur());
+    }
 
 
+    @Test
+    void testGetNom() {
+        assertEquals("Nom", e.getNom());
+    }
 
-    
+    @Test
+    void testGetPrenom() {
+        assertEquals("Prenom", e.getPrenom());
+    }
+
+    @Test
+    void testGetMail() {
+        assertEquals("mail@test.fr", e.getMail());
+    }
+
+    @Test
+    void testGetDateArrivee() {
+        assertEquals(LocalDate.of(2022, 1, 10), e.getDateArrivee());
+    }
+
+    @Test
+    void testGetDateDepart() {
+        assertEquals(LocalDate.of(2023, 1, 10), e.getDateDepart());
+    }
+
+    @Test
+    void testGetLigue() {
+        assertEquals(ligue, e.getLigue());
+    }
+
 }
