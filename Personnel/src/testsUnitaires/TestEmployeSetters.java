@@ -116,6 +116,22 @@ class TestEmployeSetters {
         l.setAdministrateur(e2);
         assertEquals(e2, l.getAdministrateur());
     }
+    
+    @Test
+    void testSuppressionAdminDevientRoot() throws Exception {
+        Ligue l = gestion.addLigue("Basket");
+
+        Employe e1 = l.addEmploye("Dupont", "Jean", "dj@test.fr", "123", null);
+        l.setAdministrateur(e1);
+        assertEquals(e1, l.getAdministrateur());
+
+        e1.remove();
+
+        assertEquals(gestion.getRoot(), l.getAdministrateur());
+        assertFalse(l.getEmployes().contains(e1));
+    }
+
+
 
     
 }
