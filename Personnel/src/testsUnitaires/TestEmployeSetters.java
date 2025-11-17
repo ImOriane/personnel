@@ -92,18 +92,30 @@ class TestEmployeSetters {
         assertFalse(l.getEmployes().contains(e1));
     }
     
+    
+    @Test
+    void testSuppressionLigue() throws Exception {
+        Ligue l = gestion.addLigue("Handball");
+        assertTrue(gestion.getLigues().contains(l));
+        l.remove();
+        assertFalse(gestion.getLigues().contains(l));
+    }
+
+
+    
     @Test
     void testModificationAdministrateur() throws Exception {
-        Ligue l = gestionPersonnel.addLigue("Basket");
+        Ligue l = gestion.addLigue("Basket");
 
         Employe e1 = l.addEmploye("Dupont", "Jean", "dj@test.fr", "123", null);
         Employe e2 = l.addEmploye("Durand", "Paul", "dp@test.fr", "456", null);
 
+        l.setAdministrateur(e1);
         assertEquals(e1, l.getAdministrateur());
 
         l.setAdministrateur(e2);
-
         assertEquals(e2, l.getAdministrateur());
     }
+
     
 }
