@@ -32,20 +32,36 @@ public class EmployeConsole
 			menu.add(changerMail(employe));
 			menu.add(changerPassword(employe));
 			menu.add(finContrat(employe));
+			menu.add(suppEmployee(employe));
+			
 			menu.addBack("q");
 			return menu;
 	}
 	
 
-	
+	private void supprimerEmploye(final Employe employe) {
+		employe.remove();
 
+		
+		
+	}
+	private Option suppEmployee(final Employe employe)
+	{
+	    return new Option(
+	        "Supprimer l'employé",
+	        "z",
+	        () -> { supprimerEmploye(employe);  System.out.println("Employé supprimé !");}
+
+	    );
+	}
+	o
 	private Option changerNom(final Employe employe)
 	{
 		return new Option("Changer le nom", "n", 
 				() -> {employe.setNom(getString("Nouveau nom : "));}
 			);
 	}
-	
+
 	private Option changerPrenom(final Employe employe)
 	{
 		return new Option("Changer le prénom", "p", () -> {employe.setPrenom(getString("Nouveau prénom : "));});

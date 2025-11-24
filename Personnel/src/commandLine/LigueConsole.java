@@ -56,14 +56,14 @@ public class LigueConsole
 	//}
 	private List<Employe> afficherEmployes(final Ligue ligue)
 	{
-	    return new List<Employe>(
+	    return new List<>(
 	        "Sélectionner un employé", 
 	        "m", 
 	        () -> new ArrayList<>(ligue.getEmployes()),
 	        (employe) -> employeConsole.editerEmploye(employe)
-
 	    );
 	}
+
 
 	private Option ajouterLigue()
 	{
