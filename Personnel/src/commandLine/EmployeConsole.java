@@ -92,17 +92,7 @@ public class EmployeConsole
 	
 	private Option finContrat(final Employe employe)
 	{
-	    return new Option("Ajouter la date de fin de contrat", "r", () -> {
-	    	try {
-	        LocalDate dateDepart = LocalDate.parse(getString("Date de depart (yyyy-MM-dd) :"));
-	        employe.setDateDepart(dateDepart);
-	    	}catch (DateTimeParseException e) {
-	    	    System.err.println("Erreur : la date doit exister et être au format AAAA-MM-JJ !");
-	    	} catch (DateException e) {
-	    		System.err.println("Erreur : la date d'arrivée ne doit pas être ultérieure à la date de départ !");
-			}
-	        
-	    });
+	    return null;
 	}
 
 }
