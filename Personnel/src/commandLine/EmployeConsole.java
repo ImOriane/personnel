@@ -40,7 +40,8 @@ public class EmployeConsole
 	
 
 	private void supprimerEmploye(final Employe employe) {
-		employe.remove();
+		employe.remove()
+		;
 
 		
 		
@@ -54,7 +55,7 @@ public class EmployeConsole
 
 	    );
 	}
-	o
+	
 	private Option changerNom(final Employe employe)
 	{
 		return new Option("Changer le nom", "n", 
