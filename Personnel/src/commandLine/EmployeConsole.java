@@ -10,6 +10,7 @@ import commandLineMenus.Menu;
 import commandLineMenus.Option;
 import personnel.DateException;
 import personnel.Employe;
+import personnel.Ligue;
 
 public class EmployeConsole 
 {
@@ -32,6 +33,7 @@ public class EmployeConsole
 			menu.add(changerMail(employe));
 			menu.add(changerPassword(employe));
 			menu.add(finContrat(employe));
+			menu.add(setadmin(employe));
 			menu.add(suppEmployee(employe));
 			menu.setAutoBack(true);
 			menu.addBack("q");
@@ -52,6 +54,16 @@ public class EmployeConsole
 	        "Supprimer l'employé",
 	        "z",
 	        () -> { supprimerEmploye(employe);  System.out.println("Employé supprimé !");}
+
+	    );
+	}
+	
+	private Option setadmin(final Employe employe)
+	{
+	    return new Option(
+	        "Mettre admin",
+	        "k",
+	        () -> { employe.getLigue().setAdministrateur(employe);  System.out.println("L'employé " + employe.getNom() + " est désormais administrateur !");}
 
 	    );
 	}
