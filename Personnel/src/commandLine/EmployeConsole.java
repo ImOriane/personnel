@@ -33,7 +33,7 @@ public class EmployeConsole
 			menu.add(changerPassword(employe));
 			menu.add(finContrat(employe));
 			menu.add(suppEmployee(employe));
-			
+			menu.setAutoBack(true);
 			menu.addBack("q");
 			return menu;
 	}
