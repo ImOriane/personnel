@@ -205,7 +205,9 @@ public class Employe implements Serializable, Comparable<Employe>
 	public String toString()
 	{
 		String res = nom + " " + prenom + " " + mail + " " +dateArrivee; 
-				//ajouter la date au string
+		if (dateDepart != null)
+				res += " dateDepart : " + dateDepart;
+	
 				res=res+" (";
 		if (estRoot())
 			res += "super-utilisateur";
@@ -214,5 +216,5 @@ public class Employe implements Serializable, Comparable<Employe>
 		return res + ")";
 	}
 }
-	
+
 
