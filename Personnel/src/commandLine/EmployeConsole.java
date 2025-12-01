@@ -32,6 +32,7 @@ public class EmployeConsole
 			menu.add(changerPrenom(employe));
 			menu.add(changerMail(employe));
 			menu.add(changerPassword(employe));
+			menu.add(changerDebutContrat(employe));
 			menu.add(finContrat(employe));
 			menu.add(setadmin(employe));
 			menu.add(suppEmployee(employe));
@@ -90,6 +91,19 @@ public class EmployeConsole
 		return new Option("Changer le password", "x", () -> {employe.setPassword(getString("Nouveau password : "));});
 	}
 	
+	private Option changerDebutContrat(final Employe employe)
+	{
+		return new Option("Changer la date du début de contrat", "u", () -> {
+	    	try {
+		        LocalDate dateArrive = LocalDate.parse(getString("Date de début (yyyy-MM-dd) :"));
+		        employe.setDateArrivee(dateArrive);
+	    	}catch (DateTimeParseException e) {
+	    	    System.err.println("Erreur : la date doit exister et être au format AAAA-MM-JJ !");
+	    	} catch (DateException e) {
+	    		System.err.println("Erreur : la date d'arrivée ne doit pas être ultérieure à la date de départ !");
+			}
+	    });
+	}
 	private Option finContrat(final Employe employe)
 	{
 		return new Option("Ajouter la date de fin de contrat", "r", () -> {
