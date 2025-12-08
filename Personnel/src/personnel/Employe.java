@@ -23,13 +23,13 @@ public class Employe implements Serializable, Comparable<Employe>
 	private LocalDate dateArrivee;
 	private LocalDate dateDepart;
 
-	public Employe(GestionPersonnel gestionPersonnel, String nom, String password) throws SauvegardeImpossible
+	Employe(GestionPersonnel gestionPersonnel, String nom, String password) throws SauvegardeImpossible
 	{
 		this(gestionPersonnel, null, nom, "", "", password, null, -1);
 		this.id = gestionPersonnel.insert(this);
 	}
 	
-	public Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee) throws SauvegardeImpossible
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee) throws SauvegardeImpossible
 	{
 		this(gestionPersonnel, ligue, nom, prenom, mail, password, dateArrivee, -1);
 		this.id = gestionPersonnel.insert(this); 
