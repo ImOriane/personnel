@@ -3,7 +3,8 @@ package personnel;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-
+import java.util.TreeSet;
+import org.mindrot.jbcrypt.BCrypt;
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent 
  * être administrateurs des employés de leur ligue.
@@ -15,25 +16,40 @@ import java.time.format.DateTimeParseException;
 public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
-	private String nom, prenom, password, mail;
+	private int id = -1;
+	private String nom, prenom, password, mail,role;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
 	private LocalDate dateArrivee;
 	private LocalDate dateDepart;
 
+	public Employe(GestionPersonnel gestionPersonnel, String nom, String password) throws SauvegardeImpossible
+	{
+		this(gestionPersonnel, null, nom, "", "", password, null, -1);
+		this.id = gestionPersonnel.insert(this);
+	}
 	
-	public Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee)
+	public Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee) throws SauvegardeImpossible
+	{
+		this(gestionPersonnel, ligue, nom, prenom, mail, password, dateArrivee, -1);
+		this.id = gestionPersonnel.insert(this); 
+	}
+	
+	public Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, int id)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
 		this.prenom = prenom;
-		this.password = password;
+		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
 		this.mail = mail;
 		this.ligue = ligue;
 		this.dateArrivee = dateArrivee;
 		this.dateDepart = null;
+		this.id = id;
+		this.role = "utilisateur";
 	}
 	
+
 	/**
 	 * Retourne vrai ssi l'employé est administrateur de la ligue 
 	 * passée en paramètre.
@@ -151,7 +167,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public boolean checkPassword(String password)
 	{
-		return this.password.equals(password);
+		return BCrypt.checkpw(password, this.password);
 	}
 
 	/**
@@ -161,9 +177,8 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public void setPassword(String password)
 	{
-		this.password= password;
+		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
 	}
-
 	/**
 	 * Retourne la ligue à laquelle l'employé est affecté.
 	 * @return la ligue à laquelle l'employé est affecté.
@@ -214,6 +229,14 @@ public class Employe implements Serializable, Comparable<Employe>
 		else
 			res += ligue.toString();
 		return res + ")";
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getRole() {
+		return role;
 	}
 }
 

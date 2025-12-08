@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 
 import personnel.*;
 
@@ -87,4 +88,51 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
+	
+	public int insert(Employe employe) throws SauvegardeImpossible
+	{
+	    try {
+	        PreparedStatement instruction = connection.prepareStatement(
+	            "INSERT INTO personnels "
+	          + "(nom_perso, prenom_perso, mail_perso, role_perso, password_perso, date_arrivée, date_depart_, id_ligue) "
+	          + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+	          Statement.RETURN_GENERATED_KEYS
+	        );
+
+	        instruction.setString(1, employe.getNom());
+	        instruction.setString(2, employe.getPrenom());
+	        instruction.setString(3, employe.getMail());
+	        instruction.setString(4, employe.getRole());
+	        instruction.setString(5, employe.getPassword());
+	        
+	        if (employe.getDateArrivee() != null) {
+	            instruction.setDate(6, java.sql.Date.valueOf(employe.getDateArrivee()));
+	        } else {
+	            instruction.setNull(6, java.sql.Types.DATE);
+	        }
+	        
+	        if (employe.getDateDepart() != null) {
+	            instruction.setDate(7, java.sql.Date.valueOf(employe.getDateDepart()));
+	        } else {
+	            instruction.setNull(7, java.sql.Types.DATE);
+	        }
+	        
+	        if (employe.getLigue() != null) {
+	            instruction.setInt(8, employe.getLigue().getId());
+	        } else {
+	            instruction.setNull(8, java.sql.Types.INTEGER);
+	        }
+
+	        instruction.executeUpdate();
+
+	        ResultSet rs = instruction.getGeneratedKeys();
+	        rs.next();
+	        return rs.getInt(1);
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new SauvegardeImpossible(e);
+	    }
+	}
+	 
 }

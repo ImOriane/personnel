@@ -34,6 +34,12 @@
        <artifactId>CommandLineMenus</artifactId>
        <version>2.0</version>
      </dependency>
+
+     <dependency>
+        <groupId>org.mindrot</groupId>
+        <artifactId>jbcrypt</artifactId>
+        <version>0.4</version>
+     </dependency>
   </dependencies>
   <repositories>
     <repository>
@@ -47,4 +53,4 @@
        <url>https://maven.alexandre-mesle.com/maven</url>
     </repository>
   </repositories>
-  </project>
+</project>

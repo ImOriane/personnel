@@ -125,7 +125,10 @@ public class LigueConsole
 
 	                }catch (DateTimeParseException e) {
 	                    System.err.println("Erreur : la date doit exister et être au format AAAA-MM-JJ !");
-	                }
+	                } catch (SauvegardeImpossible e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 	          
 	            }
 	    );
