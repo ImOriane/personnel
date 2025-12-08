@@ -2,4 +2,4 @@
 GestionPersonnel.srz
 /target/
 Credentials.java
-.idea*
+/.idea
