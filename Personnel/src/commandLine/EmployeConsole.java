@@ -11,6 +11,7 @@ import commandLineMenus.Option;
 import personnel.DateException;
 import personnel.Employe;
 import personnel.Ligue;
+import personnel.SauvegardeImpossible;
 
 public class EmployeConsole 
 {
@@ -42,9 +43,8 @@ public class EmployeConsole
 	}
 	
 
-	private void supprimerEmploye(final Employe employe) {
-		employe.remove()
-		;
+	private void supprimerEmploye(final Employe employe) throws SauvegardeImpossible {
+		employe.remove();
 
 		
 		
@@ -54,7 +54,12 @@ public class EmployeConsole
 	    return new Option(
 	        "Supprimer l'employé",
 	        "z",
-	        () -> { supprimerEmploye(employe);  System.out.println("Employé supprimé !");}
+	        () -> { try {
+				supprimerEmploye(employe);
+			} catch (SauvegardeImpossible e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  System.out.println("Employé supprimé !");}
 
 	    );
 	}

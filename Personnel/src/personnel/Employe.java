@@ -90,6 +90,9 @@ public class Employe implements Serializable, Comparable<Employe>
 	    this.dateArrivee = dateArrivee;
 	}
 
+	public int getId() {
+		return id;
+	}
 	
 	public LocalDate getDateDepart() {
 		return dateDepart;
@@ -194,14 +197,15 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * récupère les droits d'administration sur sa ligue.
 	 */
 	
-	public void remove()
+	
+	public void remove()throws SauvegardeImpossible
 	{
 		Employe root = gestionPersonnel.getRoot();
 		if (this != root)
 		{
 			if (estAdmin(getLigue()))
 				getLigue().setAdministrateur(root);
-			getLigue().remove(this);
+			gestionPersonnel.remove(this);
 		}
 		else
 			throw new ImpossibleDeSupprimerRoot();
