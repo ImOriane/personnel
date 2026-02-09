@@ -127,6 +127,16 @@ public class GestionPersonnel implements Serializable
 		return passerelle.insert(employe);
 	}
 
+	void setNom(Employe employe,String nouveauNom)throws SauvegardeImpossible
+	{
+		passerelle.setnom(employe, nouveauNom);
+	}
+	
+	void setPrenom(Employe employe,String nouveauPrenom)throws SauvegardeImpossible
+	{
+		passerelle.setprenom(employe, nouveauPrenom);
+	}
+	
 	/**
 	 * Retourne le root (super-utilisateur).
 	 * @return le root.

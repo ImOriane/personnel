@@ -113,11 +113,13 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change le nom de l'employé.
 	 * @param nom le nouveau nom.
+	 * @return 
+	 * @throws SauvegardeImpossible 
 	 */
 	
-	public void setNom(String nom)
+	public void setNom(String nom) throws SauvegardeImpossible
 	{
-		this.nom = nom;
+	gestionPersonnel.setNom(this, nom);
 	}
 
 	/**
@@ -133,11 +135,12 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change le prénom de l'employé.
 	 * @param prenom le nouveau prénom de l'employé. 
+	 * @throws SauvegardeImpossible 
 	 */
 
-	public void setPrenom(String prenom)
+	public void setPrenom(String prenom) throws SauvegardeImpossible
 	{
-		this.prenom = prenom;
+		gestionPersonnel.setNom(this, prenom);
 	}
 
 	/**

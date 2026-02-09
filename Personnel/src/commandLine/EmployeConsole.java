@@ -77,13 +77,23 @@ public class EmployeConsole
 	private Option changerNom(final Employe employe)
 	{
 		return new Option("Changer le nom", "n", 
-				() -> {employe.setNom(getString("Nouveau nom : "));}
+				() -> {try {
+					employe.setNom(getString("Nouveau nom : "));
+				} catch (SauvegardeImpossible e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}}
 			);
 	}
 
 	private Option changerPrenom(final Employe employe)
 	{
-		return new Option("Changer le prénom", "p", () -> {employe.setPrenom(getString("Nouveau prénom : "));});
+		return new Option("Changer le prénom", "p", () -> {try {
+			employe.setPrenom(getString("Nouveau prénom : "));
+		} catch (SauvegardeImpossible e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}});
 	}
 	
 	private Option changerMail(final Employe employe)
@@ -98,7 +108,7 @@ public class EmployeConsole
 	
 	private Option changerDebutContrat(final Employe employe)
 	{
-		return new Option("Changer la date du début de contrat", "u", () -> {
+		return new Option("Changer la date du détnombut de contrat", "u", () -> {
 	    	try {
 		        LocalDate dateArrive = LocalDate.parse(getString("Date de début (yyyy-MM-dd) :"));
 		        employe.setDateArrivee(dateArrive);

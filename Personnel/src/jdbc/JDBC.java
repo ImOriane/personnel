@@ -163,5 +163,42 @@ public class JDBC implements Passerelle
 	        throw new SauvegardeImpossible(e);
 	    }
 	}
-}
+	
+	@Override
+	public void setnom(Employe employe, String nouveauNom) throws SauvegardeImpossible
+	{
+	    try {
+	        PreparedStatement instruction = connection.prepareStatement(
+	            "UPDATE personnels SET nom_perso = ? WHERE id_personnel_ = ?"
+	        );
 
+	        instruction.setString(1, nouveauNom);
+	        instruction.setLong(2, employe.getId());
+
+	        instruction.executeUpdate();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new SauvegardeImpossible(e);
+	    }
+	}
+
+	@Override
+	 public void setprenom (Employe employe, String nouveauPrenom) throws SauvegardeImpossible{
+		 try {
+		        PreparedStatement instruction = connection.prepareStatement(
+		            "UPDATE personnels SET prenom_perso = ? WHERE id_personnel_ = ?"
+		        );
+
+		        instruction.setString(1, nouveauPrenom);
+		        instruction.setLong(2, employe.getId());
+
+		        instruction.executeUpdate();
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        throw new SauvegardeImpossible(e);
+		    }
+
+		}
+}
