@@ -134,5 +134,19 @@ public class JDBC implements Passerelle
 	        throw new SauvegardeImpossible(e);
 	    }
 	}
-	 
+	
+	@Override
+	public void remove(Ligue ligue) throws SauvegardeImpossible
+	{
+	    try {
+	        PreparedStatement instruction =connection.prepareStatement("DELETE FROM ligue WHERE id_ligue = ?");
+	        instruction.setLong(1, ligue.getId());
+	        instruction.executeUpdate();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new SauvegardeImpossible(e);
+	    }
+	}
 }
+
