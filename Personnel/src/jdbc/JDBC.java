@@ -184,7 +184,7 @@ public class JDBC implements Passerelle
 	}
 
 	@Override
-	 public void setprenom (Employe employe, String nouveauPrenom) throws SauvegardeImpossible{
+	public void setprenom(Employe employe, String nouveauPrenom) throws SauvegardeImpossible{
 		 try {
 		        PreparedStatement instruction = connection.prepareStatement(
 		            "UPDATE personnels SET prenom_perso = ? WHERE id_personnel_ = ?"
@@ -201,4 +201,44 @@ public class JDBC implements Passerelle
 		    }
 
 		}
+	
+	@Override
+	public void setmail(Employe employe, String nouveauMail) throws SauvegardeImpossible{
+		try {
+	        PreparedStatement instruction = connection.prepareStatement(
+	            "UPDATE personnels SET mail_perso = ? WHERE id_personnel_ = ?"
+	        );
+
+			instruction.setString(1, nouveauMail);
+	        instruction.setLong(2, employe.getId());
+
+	        instruction.executeUpdate();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new SauvegardeImpossible(e);
+	    }
+		
+	}
+	
+	@Override
+	public void setpassword(Employe employe, String nouveauMdp) throws SauvegardeImpossible{
+		try {
+	        PreparedStatement instruction = connection.prepareStatement(
+	            "UPDATE personnels SET password_perso = ? WHERE id_personnel_ = ?"
+	        );
+
+			instruction.setString(1, nouveauMdp);
+	        instruction.setLong(2, employe.getId());
+
+	        instruction.executeUpdate();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new SauvegardeImpossible(e);
+	    }
+		
+	}
 }
+
+

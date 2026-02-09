@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 /**
  * Gestion du personnel. Un seul objet de cette classe existe.
  * Il n'est pas possible d'instancier directement cette classe, 
@@ -136,7 +138,15 @@ public class GestionPersonnel implements Serializable
 	{
 		passerelle.setprenom(employe, nouveauPrenom);
 	}
-	
+	void setMail(Employe employe,String nouveauMail)throws SauvegardeImpossible
+	{
+		passerelle.setmail(employe, nouveauMail);
+	}
+	void setPassword(Employe employe,String nouveauMdp)throws SauvegardeImpossible
+	{
+		nouveauMdp = BCrypt.hashpw(nouveauMdp, BCrypt.gensalt());
+		passerelle.setpassword(employe, nouveauMdp);
+	}
 	/**
 	 * Retourne le root (super-utilisateur).
 	 * @return le root.

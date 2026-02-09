@@ -12,4 +12,6 @@ public interface Passerelle
 	 public void remove(Employe employe) throws SauvegardeImpossible;
 	 public void setnom (Employe employe, String nouveauNom) throws SauvegardeImpossible;
 	 public void setprenom (Employe employe, String nouveauPrenom) throws SauvegardeImpossible;
+	 public void setmail (Employe employe, String nouveauMail) throws SauvegardeImpossible;
+	 public void setpassword (Employe employe, String nouveauMdp) throws SauvegardeImpossible;
 }

@@ -140,7 +140,7 @@ public class Employe implements Serializable, Comparable<Employe>
 
 	public void setPrenom(String prenom) throws SauvegardeImpossible
 	{
-		gestionPersonnel.setNom(this, prenom);
+		gestionPersonnel.setPrenom(this, prenom);
 	}
 
 	/**
@@ -157,11 +157,12 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Change le mail de l'employé.
 	 * @param mail le nouveau mail de l'employé.
 	 */
-
-	public void setMail(String mail)
+	
+	public void setMail(String mail) throws SauvegardeImpossible
 	{
-		this.mail = mail;
+		gestionPersonnel.setMail(this, mail);
 	}
+
 
 	/**
 	 * Retourne vrai ssi le password passé en paramètre est bien celui
@@ -179,11 +180,12 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change le password de l'employé.
 	 * @param password le nouveau password de l'employé. 
+	 * @throws SauvegardeImpossible 
 	 */
 	
-	public void setPassword(String password)
+	public void setPassword(String password) throws SauvegardeImpossible
 	{
-		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+		gestionPersonnel.setPassword(this, password);
 	}
 	/**
 	 * Retourne la ligue à laquelle l'employé est affecté.
