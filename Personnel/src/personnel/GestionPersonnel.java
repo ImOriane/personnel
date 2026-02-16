@@ -129,24 +129,36 @@ public class GestionPersonnel implements Serializable
 		return passerelle.insert(employe);
 	}
 
-	void setNom(Employe employe,String nouveauNom)throws SauvegardeImpossible
+	void setNom(Employe employe, String type)throws SauvegardeImpossible
 	{
-		passerelle.setnom(employe, nouveauNom);
+		passerelle.update(employe, type);
 	}
 	
-	void setPrenom(Employe employe,String nouveauPrenom)throws SauvegardeImpossible
+	void setPrenom(Employe employe,String type)throws SauvegardeImpossible
 	{
-		passerelle.setprenom(employe, nouveauPrenom);
+		passerelle.update(employe, type);
 	}
-	void setMail(Employe employe,String nouveauMail)throws SauvegardeImpossible
+	void setMail(Employe employe,String type)throws SauvegardeImpossible
 	{
-		passerelle.setmail(employe, nouveauMail);
+		passerelle.update(employe, type);
 	}
-	void setPassword(Employe employe,String nouveauMdp)throws SauvegardeImpossible
+	void setPassword(Employe employe,String type)throws SauvegardeImpossible
 	{
-		nouveauMdp = BCrypt.hashpw(nouveauMdp, BCrypt.gensalt());
-		passerelle.setpassword(employe, nouveauMdp);
+
+		passerelle.update(employe, type);
 	}
+	void setDateArrivee(Employe employe,String type)throws SauvegardeImpossible
+	{
+
+		passerelle.update(employe, type);
+	}
+	void setDateDepart(Employe employe,String type)throws SauvegardeImpossible
+	{
+
+		passerelle.update(employe, type);
+	}
+	
+	
 	/**
 	 * Retourne le root (super-utilisateur).
 	 * @return le root.

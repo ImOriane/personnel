@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import personnel.*;
 
 public class JDBC implements Passerelle 
@@ -163,38 +165,33 @@ public class JDBC implements Passerelle
 	        throw new SauvegardeImpossible(e);
 	    }
 	}
-	
-	@Override
-	public void setnom(Employe employe, String nouveauNom) throws SauvegardeImpossible
-	{
-	    try {
-	        PreparedStatement instruction = connection.prepareStatement(
-	            "UPDATE personnels SET nom_perso = ? WHERE id_personnel_ = ?"
-	        );
-
-	        instruction.setString(1, nouveauNom);
-	        instruction.setLong(2, employe.getId());
-
-	        instruction.executeUpdate();
-
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        throw new SauvegardeImpossible(e);
-	    }
-	}
 
 	@Override
-	public void setprenom(Employe employe, String nouveauPrenom) throws SauvegardeImpossible{
+	public void update(Employe employe, String type) throws SauvegardeImpossible{
 		 try {
 		        PreparedStatement instruction = connection.prepareStatement(
-		            "UPDATE personnels SET prenom_perso = ? WHERE id_personnel_ = ?"
+		            "UPDATE personnels SET " +type+ " = ? WHERE id_personnel_ = ?"
 		        );
-
-		        instruction.setString(1, nouveauPrenom);
+		        if (type.equals("prenom_perso")) {
+		        instruction.setString(1, employe.getPrenom());
+		        }
+		        if (type.equals("nom_perso")) {
+			        instruction.setString(1, employe.getNom());
+			        }
+		        if (type.equals("mail_perso")) {
+			        instruction.setString(1, employe.getMail());
+			        }
+		        if (type.equals("password_perso")) {
+			        instruction.setString(1, employe.getPassword());
+			        }
+		        if (type.equals("date_arrivée")) {
+			        instruction.setDate(1, java.sql.Date.valueOf(employe.getDateArrivee()));
+			        }
+		        if (type.equals("date_depart_")) {
+			        instruction.setDate(1, java.sql.Date.valueOf(employe.getDateDepart()));
+			        }
 		        instruction.setLong(2, employe.getId());
-
 		        instruction.executeUpdate();
-
 		    } catch (SQLException e) {
 		        e.printStackTrace();
 		        throw new SauvegardeImpossible(e);
@@ -202,43 +199,7 @@ public class JDBC implements Passerelle
 
 		}
 	
-	@Override
-	public void setmail(Employe employe, String nouveauMail) throws SauvegardeImpossible{
-		try {
-	        PreparedStatement instruction = connection.prepareStatement(
-	            "UPDATE personnels SET mail_perso = ? WHERE id_personnel_ = ?"
-	        );
-
-			instruction.setString(1, nouveauMail);
-	        instruction.setLong(2, employe.getId());
-
-	        instruction.executeUpdate();
-
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        throw new SauvegardeImpossible(e);
-	    }
-		
-	}
 	
-	@Override
-	public void setpassword(Employe employe, String nouveauMdp) throws SauvegardeImpossible{
-		try {
-	        PreparedStatement instruction = connection.prepareStatement(
-	            "UPDATE personnels SET password_perso = ? WHERE id_personnel_ = ?"
-	        );
-
-			instruction.setString(1, nouveauMdp);
-	        instruction.setLong(2, employe.getId());
-
-	        instruction.executeUpdate();
-
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        throw new SauvegardeImpossible(e);
-	    }
-		
-	}
 }
 
 

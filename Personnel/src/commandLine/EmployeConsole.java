@@ -126,6 +126,9 @@ public class EmployeConsole
 	    	    System.err.println("Erreur : la date doit exister et être au format AAAA-MM-JJ !");
 	    	} catch (DateException e) {
 	    		System.err.println("Erreur : la date d'arrivée ne doit pas être ultérieure à la date de départ !");
+			} catch (SauvegardeImpossible e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 	    });
 	}
@@ -139,6 +142,9 @@ public class EmployeConsole
 	    	    System.err.println("Erreur : la date doit exister et être au format AAAA-MM-JJ !");
 	    	} catch (DateException e) {
 	    		System.err.println("Erreur : la date d'arrivée ne doit pas être ultérieure à la date de départ !");
+			} catch (SauvegardeImpossible e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 	    });
 	}

@@ -83,11 +83,12 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 
 	
-	public void setDateArrivee(LocalDate dateArrivee) throws DateException {
+	public void setDateArrivee(LocalDate dateArrivee) throws DateException, SauvegardeImpossible {
 	    if (dateDepart != null && dateArrivee.isAfter(dateDepart)) {
 	        throw new DateException("La date d'arrivée ne peut pas être après la date de départ.");
 	    }
 	    this.dateArrivee = dateArrivee;
+		gestionPersonnel.setDateArrivee(this,"date_arrivée");
 	}
 
 	public int getId() {
@@ -98,11 +99,13 @@ public class Employe implements Serializable, Comparable<Employe>
 		return dateDepart;
 	}
 	
-	public void setDateDepart(LocalDate dateDepart) throws DateException {
+	public void setDateDepart(LocalDate dateDepart) throws DateException, SauvegardeImpossible {
 	    if (dateArrivee != null && dateDepart.isBefore(dateArrivee)) {
 	        throw new DateException("La date de départ ne peut pas être avant la date d'arrivée.");
 	    }
 	    this.dateDepart = dateDepart;
+		gestionPersonnel.setDateDepart(this,"date_depart_");
+	    
 	}
 	
 	public String getNom()
@@ -117,9 +120,10 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @throws SauvegardeImpossible 
 	 */
 	
-	public void setNom(String nom) throws SauvegardeImpossible
+	public void setNom(String newstring) throws SauvegardeImpossible
 	{
-	gestionPersonnel.setNom(this, nom);
+	this.nom=newstring;
+	gestionPersonnel.setNom(this,"nom_perso");
 	}
 
 	/**
@@ -140,7 +144,8 @@ public class Employe implements Serializable, Comparable<Employe>
 
 	public void setPrenom(String prenom) throws SauvegardeImpossible
 	{
-		gestionPersonnel.setPrenom(this, prenom);
+		this.prenom=prenom;
+		gestionPersonnel.setPrenom(this,"prenom_perso");
 	}
 
 	/**
@@ -160,7 +165,8 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public void setMail(String mail) throws SauvegardeImpossible
 	{
-		gestionPersonnel.setMail(this, mail);
+		this.mail=mail;
+		gestionPersonnel.setMail(this, "mail_perso");
 	}
 
 
@@ -185,7 +191,8 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public void setPassword(String password) throws SauvegardeImpossible
 	{
-		gestionPersonnel.setPassword(this, password);
+		this.password=BCrypt.hashpw(password, BCrypt.gensalt());
+		gestionPersonnel.setPassword(this, "password_perso");
 	}
 	/**
 	 * Retourne la ligue à laquelle l'employé est affecté.
