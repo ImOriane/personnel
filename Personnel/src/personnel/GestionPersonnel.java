@@ -111,12 +111,15 @@ public class GestionPersonnel implements Serializable
 
 	 void remove(Ligue ligue) throws SauvegardeImpossible
 	{
-		passerelle.remove(ligue);
+		passerelle.remove(ligue);	     
+		ligues.removeIf(l -> l.getId() == ligue.getId());
 	}
 	 
 	 void remove(Employe employe) throws SauvegardeImpossible
 		{
 			passerelle.remove(employe);
+			
+			
 		}
 	
 	int insert(Ligue ligue) throws SauvegardeImpossible

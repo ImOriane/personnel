@@ -87,6 +87,7 @@ public class LigueConsole
 		menu.add(gererEmployes(ligue));
 		menu.add(changerNom(ligue));
 		menu.add(supprimer(ligue));
+		menu.setAutoBack(true);
 		menu.addBack("q");
 		return menu;
 	}
