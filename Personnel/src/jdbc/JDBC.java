@@ -203,7 +203,21 @@ public class JDBC implements Passerelle
 
 		}
 	
-	
+	 public void update (Ligue ligue) throws SauvegardeImpossible {
+		 try {
+		        PreparedStatement instruction = connection.prepareStatement(
+		            "UPDATE ligue SET nom = ? WHERE id_ligue = ?"
+		        );
+		
+		        instruction.setString(1, ligue.getNom());
+		       
+		        instruction.setLong(2, ligue.getId());
+		        instruction.executeUpdate();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        throw new SauvegardeImpossible(e);
+		    }
+	 }
 }
 
 
