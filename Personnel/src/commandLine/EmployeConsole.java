@@ -69,7 +69,12 @@ public class EmployeConsole
 	    return new Option(
 	        "Mettre admin",
 	        "k",
-	        () -> { employe.getLigue().setAdministrateur(employe);  System.out.println("L'employé " + employe.getNom() + " est désormais administrateur !");}
+	        () -> { try {
+				employe.getLigue().setAdministrateur(employe);
+			} catch (SauvegardeImpossible e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  System.out.println("L'employé " + employe.getNom() + " est désormais administrateur !");}
 
 	    );
 	}

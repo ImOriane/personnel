@@ -83,14 +83,16 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * un employé de la ligue ou le root. Révoque les droits de l'ancien 
 	 * administrateur.
 	 * @param administrateur le nouvel administrateur de la ligue.
+	 * @throws SauvegardeImpossible 
 	 */
 	
-	public void setAdministrateur(Employe administrateur)
+	public void setAdministrateur(Employe administrateur) throws SauvegardeImpossible
 	{
 		Employe root = gestionPersonnel.getRoot();
 		if (administrateur != root && administrateur.getLigue() != this)
 			throw new DroitsInsuffisants();
 		this.administrateur = administrateur;
+		gestionPersonnel.setAdminLigue(administrateur, "role_perso");
 	}
 
 	/**

@@ -166,6 +166,10 @@ public class GestionPersonnel implements Serializable
 		passerelle.update(ligue); 
 	}
 	
+	void setAdminLigue(Employe employe,String type)throws SauvegardeImpossible{
+		passerelle.update(employe, type);
+	}
+	
 	/**
 	 * Retourne le root (super-utilisateur).
 	 * @return le root.
