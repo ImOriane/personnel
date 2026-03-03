@@ -195,7 +195,7 @@ public class JDBC implements Passerelle
 			        instruction.setDate(1, java.sql.Date.valueOf(employe.getDateDepart()));
 			        }
 		        if (type.equals("role_perso")) {
-			        instruction.setString(1, "Admin");
+			        instruction.setString(1, employe.getRole());
 			        }
 		        instruction.setLong(2, employe.getId());
 		        instruction.executeUpdate();

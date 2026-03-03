@@ -168,6 +168,17 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.mail=mail;
 		gestionPersonnel.update(this, "mail_perso");
 	}
+	
+	public void setRole(String newstring) throws SauvegardeImpossible
+	{
+	this.role=newstring;
+	gestionPersonnel.update(this,"role_perso");
+	}
+	
+	public String getRole()
+	{
+		return role;
+	}
 
 
 	/**
@@ -251,9 +262,6 @@ public class Employe implements Serializable, Comparable<Employe>
 		return password;
 	}
 
-	public String getRole() {
-		return role;
-	}
 }
 
 

@@ -89,10 +89,16 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	public void setAdministrateur(Employe administrateur) throws SauvegardeImpossible
 	{
 		Employe root = gestionPersonnel.getRoot();
+		
 		if (administrateur != root && administrateur.getLigue() != this)
 			throw new DroitsInsuffisants();
+		
+		Employe ancienAdmin = this.administrateur;
+		ancienAdmin.setRole("utilisateur");
+		
 		this.administrateur = administrateur;
-		gestionPersonnel.setAdminLigue(administrateur, "role_perso");
+		administrateur.setRole("admin");
+		
 	}
 
 	/**
