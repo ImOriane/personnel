@@ -133,7 +133,6 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	void remove(Employe employe)
 	{
 		employes.remove(employe);
-		employes.removeIf(e -> e.getId() == employe.getId());
 	}
 
 	/**

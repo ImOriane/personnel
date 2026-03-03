@@ -109,10 +109,12 @@ public class GestionPersonnel implements Serializable
 		return ligue;
 	}
 
-	 void remove(Ligue ligue) throws SauvegardeImpossible
+	void remove(Ligue ligue) throws SauvegardeImpossible
 	{
-		passerelle.remove(ligue);	     
-		ligues.removeIf(l -> l.getId() == ligue.getId());
+		 for (Employe employe : new TreeSet<>(ligue.getEmployes()))
+		        remove(employe);
+		    passerelle.remove(ligue);
+		    ligues.remove(ligue);
 	}
 	 
 	 void remove(Employe employe) throws SauvegardeImpossible
