@@ -64,7 +64,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	public void setNom(String nom) throws SauvegardeImpossible
 	{
 		this.nom = nom;
-		gestionPersonnel.setNomLigue(this);
+		gestionPersonnel.update(this);
 	}
 
 	/**
