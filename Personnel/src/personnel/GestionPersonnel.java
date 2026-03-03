@@ -133,34 +133,11 @@ public class GestionPersonnel implements Serializable
 		return passerelle.insert(employe);
 	}
 
-	void setNom(Employe employe, String type)throws SauvegardeImpossible
+	void update(Employe employe, String type)throws SauvegardeImpossible
 	{
 		passerelle.update(employe, type);
 	}
 	
-	void setPrenom(Employe employe,String type)throws SauvegardeImpossible
-	{
-		passerelle.update(employe, type);
-	}
-	void setMail(Employe employe,String type)throws SauvegardeImpossible
-	{
-		passerelle.update(employe, type);
-	}
-	void setPassword(Employe employe,String type)throws SauvegardeImpossible
-	{
-
-		passerelle.update(employe, type);
-	}
-	void setDateArrivee(Employe employe,String type)throws SauvegardeImpossible
-	{
-
-		passerelle.update(employe, type);
-	}
-	void setDateDepart(Employe employe,String type)throws SauvegardeImpossible
-	{
-
-		passerelle.update(employe, type);
-	}
 	
 	void update(Ligue ligue) throws SauvegardeImpossible {
 		passerelle.update(ligue); 

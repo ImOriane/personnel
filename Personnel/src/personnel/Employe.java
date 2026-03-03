@@ -88,7 +88,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	        throw new DateException("La date d'arrivée ne peut pas être après la date de départ.");
 	    }
 	    this.dateArrivee = dateArrivee;
-		gestionPersonnel.setDateArrivee(this,"date_arrivée");
+		gestionPersonnel.update(this,"date_arrivée");
 	}
 
 	public int getId() {
@@ -104,7 +104,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	        throw new DateException("La date de départ ne peut pas être avant la date d'arrivée.");
 	    }
 	    this.dateDepart = dateDepart;
-		gestionPersonnel.setDateDepart(this,"date_depart_");
+		gestionPersonnel.update(this,"date_depart_");
 	    
 	}
 	
@@ -123,7 +123,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setNom(String newstring) throws SauvegardeImpossible
 	{
 	this.nom=newstring;
-	gestionPersonnel.setNom(this,"nom_perso");
+	gestionPersonnel.update(this,"nom_perso");
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setPrenom(String prenom) throws SauvegardeImpossible
 	{
 		this.prenom=prenom;
-		gestionPersonnel.setPrenom(this,"prenom_perso");
+		gestionPersonnel.update(this,"prenom_perso");
 	}
 
 	/**
@@ -166,7 +166,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setMail(String mail) throws SauvegardeImpossible
 	{
 		this.mail=mail;
-		gestionPersonnel.setMail(this, "mail_perso");
+		gestionPersonnel.update(this, "mail_perso");
 	}
 
 
@@ -192,7 +192,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setPassword(String password) throws SauvegardeImpossible
 	{
 		this.password=BCrypt.hashpw(password, BCrypt.gensalt());
-		gestionPersonnel.setPassword(this, "password_perso");
+		gestionPersonnel.update(this, "password_perso");
 	}
 	/**
 	 * Retourne la ligue à laquelle l'employé est affecté.
