@@ -49,7 +49,7 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.role = "utilisateur";
 	}
 	
-	Employe(GestionPersonnel gestionPersonnel, String nom, String hashedPassword, int id)
+	public Employe(GestionPersonnel gestionPersonnel, String nom, String hashedPassword, int id, String role, String prenom, String mail, LocalDate datearrivee, LocalDate datedepart, int idligue)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;

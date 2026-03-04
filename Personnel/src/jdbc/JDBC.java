@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.time.LocalDate;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -49,6 +50,41 @@ public class JDBC implements Passerelle
 	                + "FROM personnels WHERE id_ligue IS NULL";
 	        ResultSet rootRs = connection.createStatement().executeQuery(rootRequete);
 	        
+	        String requeteEmployes ="SELECT id_personnel_, nom_perso, prenom_perso, mail_perso, " +
+	        	    "role_perso, password_perso, date_arrivée, date_depart_, id_ligue " +
+	        	    "FROM personnels";
+
+	        Statement instructionEmployes = connection.createStatement();
+	        ResultSet rsEmployes = instructionEmployes.executeQuery(requeteEmployes);
+
+	        	while (rsEmployes.next())
+	        	{
+	        	    int id = rsEmployes.getInt("id_personnel_");
+	        	    String nom = rsEmployes.getString("nom_perso");
+	        	    String prenom = rsEmployes.getString("prenom_perso");
+	        	    String mail = rsEmployes.getString("mail_perso");
+	        	    String role = rsEmployes.getString("role_perso");
+	        	    String password = rsEmployes.getString("password_perso");
+
+	        	    LocalDate dateArrivee = rsEmployes.getObject("date_arrivée", LocalDate.class);
+	        	    LocalDate dateDepart = rsEmployes.getObject("date_depart_", LocalDate.class);
+
+	        	    int idLigue = rsEmployes.getInt("id_ligue");
+
+	    
+	        	    Employe employe = new Employe(
+	        	        gestionPersonnel,
+	        	        nom,
+	        	        password,
+	        	        id,
+	        	        role,
+	        	        prenom,
+	        	        mail,
+	        	        dateArrivee,
+	        	        dateDepart,
+	        	        idLigue
+	        	    );
+	        	}
 	        if (rootRs.next())
 	        {
 	            gestionPersonnel.addRoot( rootRs.getInt("id_personnel_"),rootRs.getString("nom_perso"),rootRs.getString("password_perso"));
