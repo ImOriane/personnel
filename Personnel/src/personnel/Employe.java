@@ -49,6 +49,20 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.role = "utilisateur";
 	}
 	
+	Employe(GestionPersonnel gestionPersonnel, String nom, String hashedPassword, int id)
+	{
+		this.gestionPersonnel = gestionPersonnel;
+		this.nom = nom;
+		this.prenom = "";
+		this.mail = "";
+		this.password = hashedPassword;
+		this.ligue = null;
+		this.dateArrivee = null;
+		this.dateDepart = null;
+		this.id = id;
+		this.role = "utilisateur";
+	}
+	
 
 	/**
 	 * Retourne vrai ssi l'employé est administrateur de la ligue 

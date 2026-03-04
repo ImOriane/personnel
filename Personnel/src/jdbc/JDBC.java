@@ -44,10 +44,25 @@ public class JDBC implements Passerelle
 			ResultSet ligues = instruction.executeQuery(requete);
 			while (ligues.next())
 				gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(2));
+			
+			String rootRequete = "SELECT id_personnel_, nom_perso, password_perso "
+	                + "FROM personnels WHERE id_ligue IS NULL";
+	        ResultSet rootRs = connection.createStatement().executeQuery(rootRequete);
+	        
+	        if (rootRs.next())
+	        {
+	            gestionPersonnel.addRoot( rootRs.getInt("id_personnel_"),rootRs.getString("nom_perso"),rootRs.getString("password_perso"));
+	        }
+	        else
+	        {
+	            gestionPersonnel.addRoot("root", "toor");
+	        }
 		}
 		catch (SQLException e)
 		{
 			System.out.println(e);
+		} catch (SauvegardeImpossible e)  { 
+			System.out.println("Impossible de créer le root : " + e); 
 		}
 		return gestionPersonnel;
 	}

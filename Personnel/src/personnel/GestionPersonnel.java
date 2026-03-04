@@ -52,11 +52,6 @@ public class GestionPersonnel implements Serializable
 	    ligues = new TreeSet<>();
 	    gestionPersonnel = this;
 
-	    try {
-	        addRoot("root", "toor");
-	    } catch (SauvegardeImpossible e) {
-	        throw new RuntimeException("Impossible de créer le root", e);
-	    }
 	}
 
 	
@@ -100,6 +95,11 @@ public class GestionPersonnel implements Serializable
 	public void addRoot(String nom, String password) throws SauvegardeImpossible
 	{
 		this.root = new Employe(this, nom, password);
+	}
+	
+	public void addRoot(int id, String nom, String hashedPassword)
+	{
+		this.root = new Employe(this, nom, hashedPassword, id);
 	}
 	
 	public Ligue addLigue(int id, String nom)
