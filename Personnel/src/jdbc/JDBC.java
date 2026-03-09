@@ -43,8 +43,30 @@ public class JDBC implements Passerelle
 			String requete = "select * from ligue";
 			Statement instruction = connection.createStatement();
 			ResultSet ligues = instruction.executeQuery(requete);
-			while (ligues.next())
-				gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(2));
+			while (ligues.next()) {
+				Ligue ligue= gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(2));
+			 
+	        String requeteEmployes ="SELECT id_personnel_, nom_perso, prenom_perso, mail_perso, " +
+	        	    "role_perso, password_perso, date_arrivée, date_depart_, id_ligue, role_perso " +
+	        	    "FROM personnels WHERE  role_perso = 'utilisateur' and id_ligue = " + ligues.getInt(1);
+
+	        Statement instructionEmployes = connection.createStatement();
+	        ResultSet rsEmployes = instructionEmployes.executeQuery(requeteEmployes);
+
+	        while (rsEmployes.next()) {
+	            int id = rsEmployes.getInt("id_personnel_");
+	            String nom = rsEmployes.getString("nom_perso");
+	            String prenom = rsEmployes.getString("prenom_perso");
+	            String mail = rsEmployes.getString("mail_perso");
+	            String role = rsEmployes.getString("role_perso");
+	            String hashedPassword = rsEmployes.getString("password_perso");
+	            LocalDate dateArrivee = rsEmployes.getObject("date_arrivée", LocalDate.class);
+	            LocalDate dateDepart = rsEmployes.getObject("date_depart_", LocalDate.class);
+
+	            ligue.addEmploye(nom, hashedPassword, id, role, prenom, mail, dateArrivee, dateDepart);  
+	        	}
+			}
+		
 			
 			String rootRequete = "SELECT id_personnel_, nom_perso, password_perso "
 	                + "FROM personnels WHERE  role_perso = 'root'";
@@ -58,44 +80,7 @@ public class JDBC implements Passerelle
 	        {
 	            gestionPersonnel.addRoot("root", "toor");
 	        }
-	        
-	        String requeteEmployes ="SELECT id_personnel_, nom_perso, prenom_perso, mail_perso, " +
-	        	    "role_perso, password_perso, date_arrivée, date_depart_, id_ligue, role_perso " +
-	        	    "FROM personnels";
-
-	        Statement instructionEmployes = connection.createStatement();
-	        ResultSet rsEmployes = instructionEmployes.executeQuery(requeteEmployes);
-
-	        	while (rsEmployes.next())
-	        	{
-	        	    int id = rsEmployes.getInt("id_personnel_");
-	        	    String nom = rsEmployes.getString("nom_perso");
-	        	    String prenom = rsEmployes.getString("prenom_perso");
-	        	    String mail = rsEmployes.getString("mail_perso");
-	        	    String role = rsEmployes.getString("role_perso");
-	        	    String password = rsEmployes.getString("password_perso");
-	        	    
-
-	        	    LocalDate dateArrivee = rsEmployes.getObject("date_arrivée", LocalDate.class);
-	        	    LocalDate dateDepart = rsEmployes.getObject("date_depart_", LocalDate.class);
-
-	        	    int idLigue = rsEmployes.getInt("id_ligue");
-	        	    
-
-	    
-	        	    Employe employe = new Employe(
-	        	        gestionPersonnel,
-	        	        nom,
-	        	        password,
-	        	        id,
-	        	        role,
-	        	        prenom,
-	        	        mail,
-	        	        dateArrivee,
-	        	        dateDepart,
-	        	        idLigue
-	        	    );
-	        	}
+	       
 		}
 		catch (SQLException e)
 		{

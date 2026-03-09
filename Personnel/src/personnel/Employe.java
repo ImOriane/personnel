@@ -49,18 +49,18 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.role = role;
 	}
 	
-	public Employe(GestionPersonnel gestionPersonnel, String nom, String hashedPassword, int id, String role, String prenom, String mail, LocalDate datearrivee, LocalDate datedepart, int idligue)
+	public Employe(GestionPersonnel gestionPersonnel, String nom, String hashedPassword, int id, String role, String prenom, String mail, LocalDate datearrivee, LocalDate datedepart, Ligue ligue)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
-		this.prenom = "";
-		this.mail = "";
+		this.prenom = prenom;
+		this.mail = mail;
 		this.password = hashedPassword;
-		this.ligue = null;
-		this.dateArrivee = null;
-		this.dateDepart = null;
+		this.ligue = ligue;
+		this.dateArrivee = datearrivee;
+		this.dateDepart = datedepart;
 		this.id = id;
-		this.role = "utilisateur";
+		this.role = role;
 	}
 	
 
