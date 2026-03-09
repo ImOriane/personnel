@@ -40,6 +40,19 @@ public class JDBC implements Passerelle
 		GestionPersonnel gestionPersonnel = new GestionPersonnel();
 		try 
 		{
+			String rootRequete = "SELECT id_personnel_, nom_perso, password_perso "
+	                + "FROM personnels WHERE  role_perso = 'root'";
+	        ResultSet rootRs = connection.createStatement().executeQuery(rootRequete);
+	    
+	        if (rootRs.next())
+	        {
+	            gestionPersonnel.addRoot( rootRs.getInt("id_personnel_"),rootRs.getString("nom_perso"),rootRs.getString("password_perso"));
+	        }
+	        else
+	        {
+	            gestionPersonnel.addRoot("root", "toor");
+	        }
+			
 			String requete = "select * from ligue";
 			Statement instruction = connection.createStatement();
 			ResultSet ligues = instruction.executeQuery(requete);
@@ -65,21 +78,29 @@ public class JDBC implements Passerelle
 
 	            ligue.addEmploye(nom, hashedPassword, id, role, prenom, mail, dateArrivee, dateDepart);  
 	        	}
+	        
+	        
+            String requeteAdmin = "SELECT id_personnel_, nom_perso, prenom_perso, mail_perso, " +
+                    "role_perso, password_perso, date_arrivée, date_depart_ " +
+                    "FROM personnels WHERE role_perso = 'admin' AND id_ligue = " + ligues.getInt(1);
+
+            Statement instructionAdmin = connection.createStatement();
+            ResultSet rsAdmin = instructionAdmin.executeQuery(requeteAdmin);
+
+            if (rsAdmin.next()) {
+                int id = rsAdmin.getInt("id_personnel_");
+                String nom = rsAdmin.getString("nom_perso");
+                String prenom = rsAdmin.getString("prenom_perso");
+                String mail = rsAdmin.getString("mail_perso");
+                String role = rsAdmin.getString("role_perso");
+                String hashedPassword = rsAdmin.getString("password_perso");
+                LocalDate dateArrivee = rsAdmin.getObject("date_arrivée", LocalDate.class);
+                LocalDate dateDepart = rsAdmin.getObject("date_depart_", LocalDate.class);
+
+                Employe admin = ligue.addEmploye(nom, hashedPassword, id, role, prenom, mail, dateArrivee, dateDepart);
+                ligue.setAdministrateurSansUpdate(admin);
+            	}
 			}
-		
-			
-			String rootRequete = "SELECT id_personnel_, nom_perso, password_perso "
-	                + "FROM personnels WHERE  role_perso = 'root'";
-	        ResultSet rootRs = connection.createStatement().executeQuery(rootRequete);
-	    
-	        if (rootRs.next())
-	        {
-	            gestionPersonnel.addRoot( rootRs.getInt("id_personnel_"),rootRs.getString("nom_perso"),rootRs.getString("password_perso"));
-	        }
-	        else
-	        {
-	            gestionPersonnel.addRoot("root", "toor");
-	        }
 	       
 		}
 		catch (SQLException e)

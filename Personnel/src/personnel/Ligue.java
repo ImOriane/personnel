@@ -102,6 +102,10 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		administrateur.setRole("admin");
 		
 	}
+	
+	public void setAdministrateurSansUpdate(Employe administrateur) {
+	    this.administrateur = administrateur;
+	}
 
 	/**
 	 * Retourne les employés de la ligue.
