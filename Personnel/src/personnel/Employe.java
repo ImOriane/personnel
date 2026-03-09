@@ -25,17 +25,17 @@ public class Employe implements Serializable, Comparable<Employe>
 
 	Employe(GestionPersonnel gestionPersonnel, String nom, String password) throws SauvegardeImpossible
 	{
-		this(gestionPersonnel, null, nom, "", "", password, null, -1);
+		this(gestionPersonnel, null, nom, "", "", password, null, -1, "root");
 		this.id = gestionPersonnel.insert(this);
 	}
 	
 	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee) throws SauvegardeImpossible
 	{
-		this(gestionPersonnel, ligue, nom, prenom, mail, password, dateArrivee, -1);
+		this(gestionPersonnel, ligue, nom, prenom, mail, password, dateArrivee, -1, "utilisateur");
 		this.id = gestionPersonnel.insert(this); 
 	}
 	
-	public Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, int id)
+	public Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, int id, String role)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -46,7 +46,7 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.dateArrivee = dateArrivee;
 		this.dateDepart = null;
 		this.id = id;
-		this.role = "utilisateur";
+		this.role = role;
 	}
 	
 	public Employe(GestionPersonnel gestionPersonnel, String nom, String hashedPassword, int id, String role, String prenom, String mail, LocalDate datearrivee, LocalDate datedepart, int idligue)

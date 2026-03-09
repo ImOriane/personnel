@@ -99,8 +99,7 @@ public class GestionPersonnel implements Serializable
 	
 	public void addRoot(int id, String nom, String hashedPassword)
 	{
-		this.root = new Employe(this, nom, hashedPassword, id);
-	}
+		this.root = new Employe(this, nom, hashedPassword, id, null, null, null, null, null, 0);	}
 	
 	public Ligue addLigue(int id, String nom)
 	{

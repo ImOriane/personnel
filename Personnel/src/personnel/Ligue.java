@@ -93,8 +93,10 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		if (administrateur != root && administrateur.getLigue() != this)
 			throw new DroitsInsuffisants();
 		
-		Employe ancienAdmin = this.administrateur;
-		ancienAdmin.setRole("utilisateur");
+		if (this.administrateur != null) {
+			Employe ancienAdmin = this.administrateur;
+			ancienAdmin.setRole("utilisateur");
+		}
 		
 		this.administrateur = administrateur;
 		administrateur.setRole("admin");

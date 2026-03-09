@@ -47,11 +47,20 @@ public class JDBC implements Passerelle
 				gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(2));
 			
 			String rootRequete = "SELECT id_personnel_, nom_perso, password_perso "
-	                + "FROM personnels WHERE id_ligue IS NULL";
+	                + "FROM personnels WHERE  role_perso = 'root'";
 	        ResultSet rootRs = connection.createStatement().executeQuery(rootRequete);
+	    
+	        if (rootRs.next())
+	        {
+	            gestionPersonnel.addRoot( rootRs.getInt("id_personnel_"),rootRs.getString("nom_perso"),rootRs.getString("password_perso"));
+	        }
+	        else
+	        {
+	            gestionPersonnel.addRoot("root", "toor");
+	        }
 	        
 	        String requeteEmployes ="SELECT id_personnel_, nom_perso, prenom_perso, mail_perso, " +
-	        	    "role_perso, password_perso, date_arrivée, date_depart_, id_ligue " +
+	        	    "role_perso, password_perso, date_arrivée, date_depart_, id_ligue, role_perso " +
 	        	    "FROM personnels";
 
 	        Statement instructionEmployes = connection.createStatement();
@@ -65,11 +74,13 @@ public class JDBC implements Passerelle
 	        	    String mail = rsEmployes.getString("mail_perso");
 	        	    String role = rsEmployes.getString("role_perso");
 	        	    String password = rsEmployes.getString("password_perso");
+	        	    
 
 	        	    LocalDate dateArrivee = rsEmployes.getObject("date_arrivée", LocalDate.class);
 	        	    LocalDate dateDepart = rsEmployes.getObject("date_depart_", LocalDate.class);
 
 	        	    int idLigue = rsEmployes.getInt("id_ligue");
+	        	    
 
 	    
 	        	    Employe employe = new Employe(
@@ -85,14 +96,6 @@ public class JDBC implements Passerelle
 	        	        idLigue
 	        	    );
 	        	}
-	        if (rootRs.next())
-	        {
-	            gestionPersonnel.addRoot( rootRs.getInt("id_personnel_"),rootRs.getString("nom_perso"),rootRs.getString("password_perso"));
-	        }
-	        else
-	        {
-	            gestionPersonnel.addRoot("root", "toor");
-	        }
 		}
 		catch (SQLException e)
 		{
