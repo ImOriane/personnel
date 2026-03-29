@@ -1,9 +1,13 @@
 package commandLine;
-
 import personnel.*;
+
+import UI.connexion;
 import commandLineMenus.*;
 import static commandLineMenus.rendering.examples.util.InOut.*;
 
+import java.awt.GridLayout;
+
+import javax.swing.*;
 public class PersonnelConsole
 {
 	private GestionPersonnel gestionPersonnel;
@@ -17,12 +21,13 @@ public class PersonnelConsole
 		this.ligueConsole = new LigueConsole(gestionPersonnel, employeConsole);
 	}
 	
-	public void start()
-	{
-		menuPrincipal().start();
-	}
-	
-	private Menu menuPrincipal()
+	//public void start()
+	//{
+		//menuPrincipal().start();
+	//}
+
+
+	/*private Menu menuPrincipal()
 	{
 		Menu menu = new Menu("Gestion du personnel des ligues");
 		menu.add(employeConsole.editerEmploye(gestionPersonnel.getRoot()));
@@ -69,13 +74,21 @@ public class PersonnelConsole
 		if (!ok)
 			System.out.println("Password incorrect.");
 		return ok;
-	}
+	} */
 	
-	public static void main(String[] args)
+
+	    public static void main(String[] args) {
+
+	        GestionPersonnel gestion = GestionPersonnel.getGestionPersonnel();
+
+	        new connexion(gestion);
+	    }
+	
+	/*public static void main(String[] args)
 	{
 		PersonnelConsole personnelConsole = 
 				new PersonnelConsole(GestionPersonnel.getGestionPersonnel());
 		if (personnelConsole.verifiePassword())
 			personnelConsole.start();
-	}
+	}*/
 }
